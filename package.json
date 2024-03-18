@@ -4,9 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "mini": "npm run uglifyjs_mini && npm run terser_mini",
+    "uglifyjs_mini":"uglifyjs -c 'toplevel,expression,keep_fargs,passes=5,unsafe,unsafe_comps,unsafe_Function,unsafe_math,unsafe_proto,unsafe_regexp,unsafe_undefined' -o ./dist/app.uglifyjs_mini.js -- ./dist/app.js",
+    "terser_mini":"terser --compress ecma=2015,computed_props=false,hoist_funs  -o dist/app.terser_mini.js -- dist/app.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/espruino": "^1.94.10",
+    "@types/node": "^20.11.28",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "espruino": "^0.1.54"
+  }
 }
