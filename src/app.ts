@@ -10,17 +10,17 @@ import { s_connect, s_connected, s_count } from "./const";
 // set wifi
 // require("Storage").writeJSON("wifi", { ssid: "your ssid", pwd: "your password" });
 
-light(3000);
+// light(3000);
 
 log(`boot ${s_count}:${count}`);
 
 
 const onConnect = (info: { ip: string }) => {
   log(s_connected, info.ip,new Date().toISOString());
-  server.listen(3000, "0.0.0.0");
+  server.listen(3000);
   http.get("http://worldtimeapi.org/api/timezone/Asia/Shanghai", (r) => {
     let d = "";
-    r.on("data", (c) => (d += c));
+    r.on("data", (c:any) => (d += c));
     r.on("end", () => log("Beijing time", JSON.parse(d).datetime));
   });
 };
@@ -39,6 +39,7 @@ wifi.getDetails((details) => {
     wifi.on(s_connected, onConnect);
   }
 });
+wifi.stopAP(()=>{})
 
 // wifi network watch
 setInterval(() => {
