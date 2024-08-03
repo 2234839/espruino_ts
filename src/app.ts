@@ -1,50 +1,24 @@
-import wifi = require("Wifi");
-import { s_connect, s_connected, s_count } from "./const";
-import { server } from "./server";
-import { count, wifiConfig } from "./store";
-import { log } from "./util";
-import ESP8266 = require("ESP8266");
-import { light } from "./led";
-
-// set wifi
-// require("Storage").writeJSON("wifi", { ssid: "your ssid", pwd: "your password" });
-
-light(3000);
-
-log(`boot ${s_count}:${count}`);
-const onConnect = (info: { ip: string }) => {
-  log(s_connected, info.ip,new Date().toISOString());
-  server.listen(3000);
-  // http.get("http://worldtimeapi.org/api/timezone/Asia/Shanghai", (r) => {
-  //   let d = "";
-  //   r.on("data", (c:any) => (d += c));
-  //   r.on("end", () => log("Beijing time", JSON.parse(d).datetime));
-  // });
-};
-
-wifi.getDetails((details) => {
-  const status = details.status;
-  if (!status.startsWith(s_connect)) {
-    wifi.connect(wifiConfig.ssid, { password: wifiConfig.pwd }, (_) =>
-      log("[wifi]",s_connect)
-    );
-  }
-  if (status === s_connected) {
-    wifi.getIP((_, info) => onConnect(info));
-  } else {
-    wifi.on(s_connected, onConnect);
-  }
-});
-wifi.stopAP(()=>{})
-
-// wifi network watch
-// require("Wifi").getDetails(console.log)
-setInterval(() => {
-  wifi.getDetails((details) => {
-    if (details.status !== s_connected) {
-      log(`not wifi ${s_connected} reboot`);
-      ESP8266.reboot();
-    }
-  });
-}, 30 * 1000);
-
+function setServoAngle(angle: number) {
+  // 将角度映射到脉冲宽度范围（1ms 到 2ms）
+  // 设置 PWM 输出，占空比表示脉冲宽度
+  analogWrite(NodeMCU.D2, 0.1 + (angle / 180) * 0.15, { freq: 50 });
+}
+import http = require("http");
+http
+  .createServer((req, res) => {
+    let body = "";
+    req.on("data", (data) => (body += data));
+    req.on("end", function () {
+      if (req.url === "/angle") {
+        setServoAngle(Number(body));
+        sendRes(res, 200, `<h1>${body}</h1>`);
+      } else {
+        sendRes(res, 404, "<h1>404 Not Found</h1>");
+      }
+    });
+  })
+  .listen(80);
+function sendRes(res: httpSRs, code: number, body: any) {
+  res.writeHead(code, { "Content-Type": "text/html" });
+  res.end(body);
+}
