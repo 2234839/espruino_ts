@@ -6,6 +6,7 @@ export default defineConfig({
   sourcemap: false,
   clean: true,
   minify: true,
+  target:'es5',
   // treeshake:true, # 测试时发现增大来 0.3k 的体积
   external: [
     //  espruino 内置模块

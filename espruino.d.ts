@@ -13,11 +13,7 @@ type ErrorFlag =
   | "MEMORY"
   | "UART_OVERFLOW";
 
-type Flag =
-  | "deepSleep"
-  | "pretokenise"
-  | "unsafeFlash"
-  | "unsyncFiles";
+type Flag = "deepSleep" | "pretokenise" | "unsafeFlash" | "unsyncFiles";
 
 type Uint8ArrayResolvable =
   | number
@@ -25,8 +21,8 @@ type Uint8ArrayResolvable =
   | Uint8ArrayResolvable[]
   | ArrayBuffer
   | ArrayBufferView
-  | { data: Uint8ArrayResolvable, count: number }
-  | { callback: () => Uint8ArrayResolvable }
+  | { data: Uint8ArrayResolvable; count: number }
+  | { callback: () => Uint8ArrayResolvable };
 
 type VariableSizeInformation = {
   name: string;
@@ -35,45 +31,45 @@ type VariableSizeInformation = {
 };
 
 type PowerUsage = {
-    total: number,
-    device: {
-        CPU?: number,
-        UART?: number,
-        PWM?: number,
-        LED1?: number,
-        LED2?: number,
-        LED3?: number,
+  total: number;
+  device: {
+    CPU?: number;
+    UART?: number;
+    PWM?: number;
+    LED1?: number;
+    LED2?: number;
+    LED3?: number;
 
-        // bangle
-        LCD?: number,
-        LCD_backlight?: number,
-        LCD_touch?: number,
-        HRM?: number,
-        GPS?: number,
-        compass?: number,
-        baro?: number,
+    // bangle
+    LCD?: number;
+    LCD_backlight?: number;
+    LCD_touch?: number;
+    HRM?: number;
+    GPS?: number;
+    compass?: number;
+    baro?: number;
 
-        // nrf
-        BLE_periph?: number,
-        BLE_central?: number,
-        BLE_advertise?: number,
-        BLE_scan?: number,
+    // nrf
+    BLE_periph?: number;
+    BLE_central?: number;
+    BLE_advertise?: number;
+    BLE_scan?: number;
 
-        // pixljs
-        //LCD?: number, // (see above)
+    // pixljs
+    //LCD?: number, // (see above)
 
-        // puck
-        mag?: number,
-        accel?: number,
+    // puck
+    mag?: number;
+    accel?: number;
 
-        // jolt
-        driver0?: number,
-        driver1?: number,
-        pin0_internal_resistance?: number,
-        pin2_internal_resistance?: number,
-        pin4_internal_resistance?: number,
-        pin6_internal_resistance?: number,
-    },
+    // jolt
+    driver0?: number;
+    driver1?: number;
+    pin0_internal_resistance?: number;
+    pin2_internal_resistance?: number;
+    pin4_internal_resistance?: number;
+    pin6_internal_resistance?: number;
+  };
 };
 
 interface ArrayLike<T> {
@@ -85,9 +81,9 @@ type IntervalId = number & { _brand: "interval" };
 type TimeoutId = number & { _brand: "timeout" };
 
 type PipeOptions = {
-  chunkSize?: number,
-  end?: boolean,
-  complete?: () => void,
+  chunkSize?: number;
+  end?: boolean;
+  complete?: () => void;
 };
 
 type PinMode =
@@ -207,34 +203,24 @@ type GPSFix = {
   time: Date;
   satellites: number;
   fix: number;
-  hdop: number
+  hdop: number;
 };
 
 type PressureData = {
   temperature: number;
   pressure: number;
   altitude: number;
-}
+};
 
 type TapAxis = -2 | -1 | 0 | 1 | 2;
 
 type SwipeCallback = (directionLR: -1 | 0 | 1, directionUD?: -1 | 0 | 1) => void;
 
-type TouchCallback = (button: number, xy?: { x: number, y: number }) => void;
+type TouchCallback = (button: number, xy?: { x: number; y: number }) => void;
 
-type DragCallback = (event: {
-  x: number;
-  y: number;
-  dx: number;
-  dy: number;
-  b: 1 | 0;
-}) => void;
+type DragCallback = (event: { x: number; y: number; dx: number; dy: number; b: 1 | 0 }) => void;
 
-type LCDMode =
-  | "direct"
-  | "doublebuffered"
-  | "120x120"
-  | "80x80"
+type LCDMode = "direct" | "doublebuffered" | "120x120" | "80x80";
 
 type BangleOptions<Boolean = boolean> = {
   wakeOnBTN1: Boolean;
@@ -258,12 +244,14 @@ type BangleOptions<Boolean = boolean> = {
   btnLoadTimeout: number;
 };
 
-type SetUIArg<Mode> = Mode | {
-  mode: Mode,
-  back?: () => void,
-  remove?: () => void,
-  redraw?: () => void,
-};
+type SetUIArg<Mode> =
+  | Mode
+  | {
+      mode: Mode;
+      back?: () => void;
+      remove?: () => void;
+      redraw?: () => void;
+    };
 
 /**
  * Menu item that holds a boolean value.
@@ -341,29 +329,32 @@ type NRFFilters = {
 };
 
 type NRFSecurityStatus = {
-  advertising: boolean,
-  privacy?: ShortBoolean | {
-    mode: "off"
-  } | {
-    mode: "device_privacy" | "network_privacy",
-    addr_type: "random_private_resolvable" | "random_private_non_resolvable",
-    addr_cycle_s: number,
-  },
+  advertising: boolean;
+  privacy?:
+    | ShortBoolean
+    | {
+        mode: "off";
+      }
+    | {
+        mode: "device_privacy" | "network_privacy";
+        addr_type: "random_private_resolvable" | "random_private_non_resolvable";
+        addr_cycle_s: number;
+      };
 } & (
-  {
-    connected: true,
-    encrypted: boolean,
-    mitm_protected: boolean,
-    bonded: boolean,
-    connected_addr?: string,
-  } | {
-    connected: false,
-    encrypted: false,
-    mitm_protected: false,
-    bonded: false,
-  }
+  | {
+      connected: true;
+      encrypted: boolean;
+      mitm_protected: boolean;
+      bonded: boolean;
+      connected_addr?: string;
+    }
+  | {
+      connected: false;
+      encrypted: false;
+      mitm_protected: false;
+      bonded: false;
+    }
 );
-
 
 // CLASSES
 
@@ -610,8 +601,6 @@ declare class ESP32 {
    * @url http://www.espruino.com/Reference#l_ESP32_setOTAValid
    */
   static setOTAValid(isValid: boolean): void;
-
-
 }
 
 /**
@@ -691,8 +680,6 @@ declare class NodeMCU {
    * @url http://www.espruino.com/Reference#l_NodeMCU_D10
    */
   static D10: Pin;
-
-
 }
 
 /**
@@ -831,8 +818,6 @@ declare class Nucleo {
    * @url http://www.espruino.com/Reference#l_Nucleo_D15
    */
   static D15: Pin;
-
-
 }
 
 /**
@@ -932,7 +917,7 @@ interface StringConstructor {
    * @returns {any} A String
    * @url http://www.espruino.com/Reference#l_String_String
    */
-  new(...str: any[]): any;
+  new (...str: any[]): any;
   (arg?: any): string;
 }
 
@@ -1184,7 +1169,7 @@ interface String {
  * them.
  * @url http://www.espruino.com/Reference#String
  */
-declare const String: StringConstructor
+declare const String: StringConstructor;
 
 interface processConstructor {
   /**
@@ -1287,15 +1272,13 @@ interface processConstructor {
   memory(gc?: any): any;
 }
 
-interface process {
-
-}
+interface process {}
 
 /**
  * This class contains information about Espruino itself
  * @url http://www.espruino.com/Reference#process
  */
-declare const process: processConstructor
+declare const process: processConstructor;
 
 interface PromiseConstructor {
   /**
@@ -1335,7 +1318,9 @@ interface PromiseConstructor {
    * @returns {any} A Promise
    * @url http://www.espruino.com/Reference#l_Promise_Promise
    */
-  new<T>(executor: (resolve: (value: T) => void, reject: (reason?: any) => void) => void): Promise<T>;
+  new <T>(
+    executor: (resolve: (value: T) => void, reject: (reason?: any) => void) => void,
+  ): Promise<T>;
 }
 
 interface Promise<T> {
@@ -1346,7 +1331,10 @@ interface Promise<T> {
    * @returns {any} The original Promise
    * @url http://www.espruino.com/Reference#l_Promise_then
    */
-  then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | Promise<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | Promise<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+  then<TResult1 = T, TResult2 = never>(
+    onfulfilled?: ((value: T) => TResult1 | Promise<TResult1>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | Promise<TResult2>) | undefined | null,
+  ): Promise<TResult1 | TResult2>;
 
   /**
    *
@@ -1361,7 +1349,7 @@ interface Promise<T> {
  * This is the built-in class for ES6 Promises
  * @url http://www.espruino.com/Reference#Promise
  */
-declare const Promise: PromiseConstructor
+declare const Promise: PromiseConstructor;
 
 interface JSONConstructor {
   /**
@@ -1392,15 +1380,13 @@ interface JSONConstructor {
   parse(string: any): any;
 }
 
-interface JSON {
-
-}
+interface JSON {}
 
 /**
  * An Object that handles conversion to and from the JSON data interchange format
  * @url http://www.espruino.com/Reference#JSON
  */
-declare const JSON: JSONConstructor
+declare const JSON: JSONConstructor;
 
 interface ErrorConstructor {
   /**
@@ -1411,7 +1397,7 @@ interface ErrorConstructor {
    * @returns {any} An Error object
    * @url http://www.espruino.com/Reference#l_Error_Error
    */
-  new(message?: string): Error;
+  new (message?: string): Error;
 }
 
 interface Error {
@@ -1426,7 +1412,7 @@ interface Error {
  * The base class for runtime errors
  * @url http://www.espruino.com/Reference#Error
  */
-declare const Error: ErrorConstructor
+declare const Error: ErrorConstructor;
 
 interface SyntaxErrorConstructor {
   /**
@@ -1437,7 +1423,7 @@ interface SyntaxErrorConstructor {
    * @returns {any} A SyntaxError object
    * @url http://www.espruino.com/Reference#l_SyntaxError_SyntaxError
    */
-  new(message?: string): SyntaxError;
+  new (message?: string): SyntaxError;
 }
 
 interface SyntaxError {
@@ -1452,7 +1438,7 @@ interface SyntaxError {
  * The base class for syntax errors
  * @url http://www.espruino.com/Reference#SyntaxError
  */
-declare const SyntaxError: SyntaxErrorConstructor
+declare const SyntaxError: SyntaxErrorConstructor;
 
 interface TypeErrorConstructor {
   /**
@@ -1463,7 +1449,7 @@ interface TypeErrorConstructor {
    * @returns {any} A TypeError object
    * @url http://www.espruino.com/Reference#l_TypeError_TypeError
    */
-  new(message?: string): TypeError;
+  new (message?: string): TypeError;
 }
 
 interface TypeError {
@@ -1478,7 +1464,7 @@ interface TypeError {
  * The base class for type errors
  * @url http://www.espruino.com/Reference#TypeError
  */
-declare const TypeError: TypeErrorConstructor
+declare const TypeError: TypeErrorConstructor;
 
 /**
  * The base class for internal errors
@@ -1511,7 +1497,7 @@ interface ReferenceErrorConstructor {
    * @returns {any} A ReferenceError object
    * @url http://www.espruino.com/Reference#l_ReferenceError_ReferenceError
    */
-  new(message?: string): ReferenceError;
+  new (message?: string): ReferenceError;
 }
 
 interface ReferenceError {
@@ -1527,7 +1513,7 @@ interface ReferenceError {
  * been accessed.
  * @url http://www.espruino.com/Reference#ReferenceError
  */
-declare const ReferenceError: ReferenceErrorConstructor
+declare const ReferenceError: ReferenceErrorConstructor;
 
 interface RegExpConstructor {
   /**
@@ -1539,7 +1525,7 @@ interface RegExpConstructor {
    * @returns {any} A RegExp object
    * @url http://www.espruino.com/Reference#l_RegExp_RegExp
    */
-  new(...value: any[]): RegExp;
+  new (...value: any[]): RegExp;
   (value: any): RegExp;
 }
 
@@ -1590,7 +1576,7 @@ interface RegExp {
  * There's a GitHub issue [concerning RegExp features here](https://github.com/espruino/Espruino/issues/1257)
  * @url http://www.espruino.com/Reference#RegExp
  */
-declare const RegExp: RegExpConstructor
+declare const RegExp: RegExpConstructor;
 
 /**
  * This class allows use of the built-in SPI ports. Currently it is SPI master
@@ -2014,7 +2000,7 @@ declare class Serial {
    * end : call the 'end' function on the destination when the source is finished
    * @url http://www.espruino.com/Reference#l_Serial_pipe
    */
-  pipe(destination: any, options?: PipeOptions): void
+  pipe(destination: any, options?: PipeOptions): void;
 
   /**
    * Flush this serial stream (pause execution until all data has been sent)
@@ -2201,7 +2187,11 @@ declare class E {
    * @returns {number} The variance of the given buffer
    * @url http://www.espruino.com/Reference#l_E_convolve
    */
-  static convolve(arr1: string | number[] | ArrayBuffer, arr2: string | number[] | ArrayBuffer, offset: number): number;
+  static convolve(
+    arr1: string | number[] | ArrayBuffer,
+    arr2: string | number[] | ArrayBuffer,
+    offset: number,
+  ): number;
 
   /**
    * Performs a Fast Fourier Transform (FFT) in 32 bit floats on the supplied data
@@ -2220,7 +2210,11 @@ declare class E {
    * @param {boolean} inverse - Set this to true if you want an inverse FFT - otherwise leave as 0
    * @url http://www.espruino.com/Reference#l_E_FFT
    */
-  static FFT(arrReal: string | number[] | ArrayBuffer, arrImage?: string | number[] | ArrayBuffer, inverse?: boolean): any;
+  static FFT(
+    arrReal: string | number[] | ArrayBuffer,
+    arrImage?: string | number[] | ArrayBuffer,
+    inverse?: boolean,
+  ): any;
 
   /**
    * Enable the watchdog timer. This will reset Espruino if it isn't able to return
@@ -2280,7 +2274,7 @@ declare class E {
    * @returns {any} An array of error flags
    * @url http://www.espruino.com/Reference#l_E_getErrorFlags
    */
-  static getErrorFlags(): ErrorFlag[]
+  static getErrorFlags(): ErrorFlag[];
 
   /**
    * Get Espruino's interpreter flags that control the way it handles your JavaScript
@@ -2296,7 +2290,7 @@ declare class E {
    * @returns {any} An object containing flag names and their values
    * @url http://www.espruino.com/Reference#l_E_getFlags
    */
-  static getFlags(): { [key in Flag]: boolean }
+  static getFlags(): { [key in Flag]: boolean };
 
   /**
    * Set the Espruino interpreter flags that control the way it handles your
@@ -2307,7 +2301,7 @@ declare class E {
    * @param {any} flags - An object containing flag names and boolean values. You need only specify the flags that you want to change.
    * @url http://www.espruino.com/Reference#l_E_setFlags
    */
-  static setFlags(flags: { [key in Flag]?: boolean }): void
+  static setFlags(flags: { [key in Flag]?: boolean }): void;
 
   /**
    * Pipe one stream to another.
@@ -2343,7 +2337,7 @@ declare class E {
    * end : call the 'end' function on the destination when the source is finished
    * @url http://www.espruino.com/Reference#l_E_pipe
    */
-  static pipe(source: any, destination: any, options?: PipeOptions): void
+  static pipe(source: any, destination: any, options?: PipeOptions): void;
 
   /**
    * Create an ArrayBuffer from the given string. This is done via a reference, not a
@@ -2561,7 +2555,19 @@ declare class E {
    * @returns {number} The actual frequency the clock has been set to
    * @url http://www.espruino.com/Reference#l_E_setClock
    */
-  static setClock(options: number | { M: number, N: number, P: number, Q: number, latency?: number, PCLK?: number, PCLK2?: number }): number;
+  static setClock(
+    options:
+      | number
+      | {
+          M: number;
+          N: number;
+          P: number;
+          Q: number;
+          latency?: number;
+          PCLK?: number;
+          PCLK2?: number;
+        },
+  ): number;
 
   /**
    * Changes the device that the JS console (otherwise known as the REPL) is attached
@@ -2586,14 +2592,17 @@ declare class E {
    * @param {any} [options] - [optional] object of options, see below
    * @url http://www.espruino.com/Reference#l_E_setConsole
    */
-  static setConsole(device: "Serial1" | "USB" | "Bluetooth" | "Telnet" | "Terminal" | Serial | null, options?: { force?: boolean }): void;
+  static setConsole(
+    device: "Serial1" | "USB" | "Bluetooth" | "Telnet" | "Terminal" | Serial | null,
+    options?: { force?: boolean },
+  ): void;
 
   /**
    * Returns the current console device - see `E.setConsole` for more information.
    * @returns {any} The current console device as a string, or just `null` if the console is null
    * @url http://www.espruino.com/Reference#l_E_getConsole
    */
-  static getConsole(): string | null
+  static getConsole(): string | null;
 
   /**
    * Reverse the 8 bits in a byte, swapping MSB and LSB.
@@ -2742,7 +2751,12 @@ declare class E {
    * @param {number} bits - If specified, the number of bits per element (MSB first) - otherwise use a 1:1 mapping. If negative, use LSB first.
    * @url http://www.espruino.com/Reference#l_E_mapInPlace
    */
-  static mapInPlace(from: ArrayBuffer, to: ArrayBuffer, map?: number[] | ((value: number, index: number) => number) | undefined, bits?: number): void;
+  static mapInPlace(
+    from: ArrayBuffer,
+    to: ArrayBuffer,
+    map?: number[] | ((value: number, index: number) => number) | undefined,
+    bits?: number,
+  ): void;
 
   /**
    * Search in an Object, Array, or Function
@@ -2754,7 +2768,11 @@ declare class E {
    * @url http://www.espruino.com/Reference#l_E_lookupNoCase
    */
   static lookupNoCase(haystack: any[] | object | Function, needle: string, returnKey?: false): any;
-  static lookupNoCase<T>(haystack: any[] | object | Function, needle: T, returnKey: true): T | undefined;
+  static lookupNoCase<T>(
+    haystack: any[] | object | Function,
+    needle: T,
+    returnKey: true,
+  ): T | undefined;
 
   /**
    * Get the current interpreter state in a text form such that it can be copied to a
@@ -2904,7 +2922,20 @@ declare class E {
    * @param {any} params - An array containing the settings for DST, or `undefined` to disable
    * @url http://www.espruino.com/Reference#l_E_setDST
    */
-  static setDST(dstOffset: number, timezone: number, startDowNumber: number, startDow: number, startMonth: number, startDayOffset: number, startTimeOfDay: number, endDowNumber: number, endDow: number, endMonth: number, endDayOffset: number, endTimeOfDay: number): void
+  static setDST(
+    dstOffset: number,
+    timezone: number,
+    startDowNumber: number,
+    startDow: number,
+    startMonth: number,
+    startDayOffset: number,
+    startTimeOfDay: number,
+    endDowNumber: number,
+    endDow: number,
+    endMonth: number,
+    endDayOffset: number,
+    endTimeOfDay: number,
+  ): void;
 
   /**
    * Create an object where every field accesses a specific 32 bit address in the
@@ -2921,7 +2952,10 @@ declare class E {
    * @returns {any} An object where each field is memory-mapped to a register.
    * @url http://www.espruino.com/Reference#l_E_memoryMap
    */
-  static memoryMap<T extends string>(baseAddress: number, registers: { [key in T]: number }): { [key in T]: number };
+  static memoryMap<T extends string>(
+    baseAddress: number,
+    registers: { [key in T]: number },
+  ): { [key in T]: number };
 
   /**
    * Provide assembly to Espruino.
@@ -3089,7 +3123,11 @@ declare class E {
    * @returns {any} A string containing all UTF8 sequences flattened to 8 bits
    * @url http://www.espruino.com/Reference#l_E_decodeUTF8
    */
-  static decodeUTF8(str: string, lookup: string[], replaceFn: string | ((charCode: number) => string)): string;
+  static decodeUTF8(
+    str: string,
+    lookup: string[],
+    replaceFn: string | ((charCode: number) => string),
+  ): string;
 
   /**
    * When using events with `X.on('foo', function() { ... })`
@@ -3200,7 +3238,7 @@ declare class E {
    * @param {any} [options] - [optional] a title for the message, or an object of options `{title:string, img:image_string}`
    * @url http://www.espruino.com/Reference#l_E_showMessage
    */
-  static showMessage(message: string, title?: string | { title?: string, img?: string }): void;
+  static showMessage(message: string, title?: string | { title?: string; img?: string }): void;
 
   /**
    * Displays a full screen prompt on the screen, with the buttons requested (or
@@ -3243,7 +3281,15 @@ declare class E {
    * @returns {any} A promise that is resolved when 'Ok' is pressed
    * @url http://www.espruino.com/Reference#l_E_showPrompt
    */
-  static showPrompt<T = boolean>(message: string, options?: { title?: string, buttons?: { [key: string]: T }, image?: string, remove?: () => void }): Promise<T>;
+  static showPrompt<T = boolean>(
+    message: string,
+    options?: {
+      title?: string;
+      buttons?: { [key: string]: T };
+      image?: string;
+      remove?: () => void;
+    },
+  ): Promise<T>;
   static showPrompt(): void;
 
   /**
@@ -3282,7 +3328,14 @@ declare class E {
    * @returns {any} A menu object with `draw()` and `drawItem(itemNo)` functions
    * @url http://www.espruino.com/Reference#l_E_showScroller
    */
-  static showScroller(options?: { h: number, c: number, draw: (idx: number, rect: { x: number, y: number, w: number, h: number }) => void, select: (idx: number, touch?: {x: number, y: number}) => void, back?: () => void, remove?: () => void }): { draw: () => void, drawItem: (itemNo: number) => void };
+  static showScroller(options?: {
+    h: number;
+    c: number;
+    draw: (idx: number, rect: { x: number; y: number; w: number; h: number }) => void;
+    select: (idx: number, touch?: { x: number; y: number }) => void;
+    back?: () => void;
+    remove?: () => void;
+  }): { draw: () => void; drawItem: (itemNo: number) => void };
   static showScroller(): void;
 
   /**
@@ -3325,7 +3378,10 @@ declare class E {
    * @url http://www.espruino.com/Reference#l_E_showAlert
    */
   static showAlert(message?: string, options?: string): Promise<void>;
-  static showAlert(message?: string, options?: { title?: string, remove?: () => void }): Promise<void>;
+  static showAlert(
+    message?: string,
+    options?: { title?: string; remove?: () => void },
+  ): Promise<void>;
 
   /**
    * Setup the filesystem so that subsequent calls to `E.openFile` and
@@ -3494,7 +3550,10 @@ declare class E {
    * @returns {any} A promise that is resolved when 'Ok' is pressed
    * @url http://www.espruino.com/Reference#l_E_showPrompt
    */
-  static showPrompt<T = boolean>(message: string, options?: { title?: string, buttons?: { [key: string]: T } }): Promise<T>;
+  static showPrompt<T = boolean>(
+    message: string,
+    options?: { title?: string; buttons?: { [key: string]: T } },
+  ): Promise<T>;
   static showPrompt(): void;
 
   /**
@@ -3578,8 +3637,6 @@ declare class E {
    * @url http://www.espruino.com/Reference#l_E_AMS
    */
   static on(event: "AMS", callback: (info: any) => void): void;
-
-
 }
 
 interface MathConstructor {
@@ -3810,15 +3867,13 @@ interface MathConstructor {
   sign(x: number): number;
 }
 
-interface Math {
-
-}
+interface Math {}
 
 /**
  * This is a standard JavaScript class that contains useful Maths routines
  * @url http://www.espruino.com/Reference#Math
  */
-declare const Math: MathConstructor
+declare const Math: MathConstructor;
 
 interface NumberConstructor {
   /**
@@ -3859,7 +3914,7 @@ interface NumberConstructor {
    * @returns {any} A Number object
    * @url http://www.espruino.com/Reference#l_Number_Number
    */
-  new(...value: any[]): Number;
+  new (...value: any[]): Number;
   (value: any): number;
 }
 
@@ -3878,7 +3933,7 @@ interface Number {
  * This is the built-in JavaScript class for numbers.
  * @url http://www.espruino.com/Reference#Number
  */
-declare const Number: NumberConstructor
+declare const Number: NumberConstructor;
 
 interface ObjectConstructor {
   /**
@@ -4032,7 +4087,7 @@ interface ObjectConstructor {
    * @returns {any} An Object
    * @url http://www.espruino.com/Reference#l_Object_Object
    */
-  new(value: any): any;
+  new (value: any): any;
 }
 
 interface Object {
@@ -4194,7 +4249,7 @@ interface Object {
  * This is the built-in class for Objects
  * @url http://www.espruino.com/Reference#Object
  */
-declare const Object: ObjectConstructor
+declare const Object: ObjectConstructor;
 
 interface FunctionConstructor {
   /**
@@ -4205,7 +4260,7 @@ interface FunctionConstructor {
    * @returns {any} A Number object
    * @url http://www.espruino.com/Reference#l_Function_Function
    */
-  new(...args: any[]): any;
+  new (...args: any[]): any;
 }
 
 interface Function {
@@ -4254,7 +4309,7 @@ interface Function {
  * This is the built-in class for Functions
  * @url http://www.espruino.com/Reference#Function
  */
-declare const Function: FunctionConstructor
+declare const Function: FunctionConstructor;
 
 /**
  * This class handles waveforms. In Espruino, a Waveform is a set of data that you
@@ -4317,7 +4372,7 @@ interface ArrayBufferConstructor {
    * @returns {any} An ArrayBuffer object
    * @url http://www.espruino.com/Reference#l_ArrayBuffer_ArrayBuffer
    */
-  new(byteLength: number): ArrayBuffer;
+  new (byteLength: number): ArrayBuffer;
 }
 
 interface ArrayBuffer {
@@ -4335,7 +4390,7 @@ interface ArrayBuffer {
  * `DataView` useful.
  * @url http://www.espruino.com/Reference#ArrayBuffer
  */
-declare const ArrayBuffer: ArrayBufferConstructor
+declare const ArrayBuffer: ArrayBufferConstructor;
 
 /**
  * This is the built-in JavaScript class that is the prototype for:
@@ -4354,8 +4409,6 @@ declare const ArrayBuffer: ArrayBufferConstructor
  * @url http://www.espruino.com/Reference#ArrayBufferView
  */
 declare class ArrayBufferView<T = ArrayBuffer> {
-
-
   /**
    * The buffer this view references
    * @returns {any} An ArrayBuffer object
@@ -4385,7 +4438,7 @@ declare class ArrayBufferView<T = ArrayBuffer> {
    * @param {number} [offset] - [optional] The offset in this array at which to write the values
    * @url http://www.espruino.com/Reference#l_ArrayBufferView_set
    */
-  set(arr: ArrayLike<number>, offset: number): void
+  set(arr: ArrayLike<number>, offset: number): void;
 
   /**
    * Return an array which is made from the following: ```A.map(function) =
@@ -4469,7 +4522,15 @@ declare class ArrayBufferView<T = ArrayBuffer> {
    * @returns {any} The value returned by the last function called
    * @url http://www.espruino.com/Reference#l_ArrayBufferView_reduce
    */
-  reduce(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: T) => number, initialValue?: number): number;
+  reduce(
+    callbackfn: (
+      previousValue: number,
+      currentValue: number,
+      currentIndex: number,
+      array: T,
+    ) => number,
+    initialValue?: number,
+  ): number;
 
   /**
    * Fill this array with the given value, for every index `>= start` and `< end`
@@ -4501,7 +4562,10 @@ declare class ArrayBufferView<T = ArrayBuffer> {
    * @returns {any} The array element where `function` returns `true`, or `undefined`
    * @url http://www.espruino.com/Reference#l_ArrayBufferView_find
    */
-  find(predicate: (value: number, index: number, obj: T) => boolean, thisArg?: any): number | undefined;
+  find(
+    predicate: (value: number, index: number, obj: T) => boolean,
+    thisArg?: any,
+  ): number | undefined;
 
   /**
    * Return the array element's index where `function` returns `true`, or `-1` if it
@@ -4518,7 +4582,7 @@ declare class ArrayBufferView<T = ArrayBuffer> {
    * @returns {any} This array
    * @url http://www.espruino.com/Reference#l_ArrayBufferView_reverse
    */
-  reverse(): T
+  reverse(): T;
 
   /**
    * Return a copy of a portion of this array (in a new array).
@@ -4531,7 +4595,7 @@ declare class ArrayBufferView<T = ArrayBuffer> {
    */
   slice(start?: number, end?: number): number[];
 
-  [index: number]: number
+  [index: number]: number;
 }
 
 interface Uint8ArrayConstructor {
@@ -4548,14 +4612,14 @@ interface Uint8ArrayConstructor {
    * @returns {any} A typed array
    * @url http://www.espruino.com/Reference#l_Uint8Array_Uint8Array
    */
-  new(length: number): Uint8Array;
-  new(array: ArrayLike<number>): Uint8Array;
-  new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint8Array;
+  new (length: number): Uint8Array;
+  new (array: ArrayLike<number>): Uint8Array;
+  new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint8Array;
 }
 
 type Uint8Array = ArrayBufferView<Uint8Array>;
 
-declare const Uint8Array: Uint8ArrayConstructor
+declare const Uint8Array: Uint8ArrayConstructor;
 
 interface Uint8ClampedArrayConstructor {
   /**
@@ -4573,14 +4637,14 @@ interface Uint8ClampedArrayConstructor {
    * @returns {any} A typed array
    * @url http://www.espruino.com/Reference#l_Uint8ClampedArray_Uint8ClampedArray
    */
-  new(length: number): Uint8ClampedArray;
-  new(array: ArrayLike<number>): Uint8ClampedArray;
-  new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint8ClampedArray;
+  new (length: number): Uint8ClampedArray;
+  new (array: ArrayLike<number>): Uint8ClampedArray;
+  new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint8ClampedArray;
 }
 
 type Uint8ClampedArray = ArrayBufferView<Uint8ClampedArray>;
 
-declare const Uint8ClampedArray: Uint8ClampedArrayConstructor
+declare const Uint8ClampedArray: Uint8ClampedArrayConstructor;
 
 interface Int8ArrayConstructor {
   /**
@@ -4596,14 +4660,14 @@ interface Int8ArrayConstructor {
    * @returns {any} A typed array
    * @url http://www.espruino.com/Reference#l_Int8Array_Int8Array
    */
-  new(length: number): Int8Array;
-  new(array: ArrayLike<number>): Int8Array;
-  new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Int8Array;
+  new (length: number): Int8Array;
+  new (array: ArrayLike<number>): Int8Array;
+  new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Int8Array;
 }
 
 type Int8Array = ArrayBufferView<Int8Array>;
 
-declare const Int8Array: Int8ArrayConstructor
+declare const Int8Array: Int8ArrayConstructor;
 
 interface Uint16ArrayConstructor {
   /**
@@ -4619,14 +4683,14 @@ interface Uint16ArrayConstructor {
    * @returns {any} A typed array
    * @url http://www.espruino.com/Reference#l_Uint16Array_Uint16Array
    */
-  new(length: number): Uint16Array;
-  new(array: ArrayLike<number>): Uint16Array;
-  new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint16Array;
+  new (length: number): Uint16Array;
+  new (array: ArrayLike<number>): Uint16Array;
+  new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint16Array;
 }
 
 type Uint16Array = ArrayBufferView<Uint16Array>;
 
-declare const Uint16Array: Uint16ArrayConstructor
+declare const Uint16Array: Uint16ArrayConstructor;
 
 interface Int16ArrayConstructor {
   /**
@@ -4642,14 +4706,14 @@ interface Int16ArrayConstructor {
    * @returns {any} A typed array
    * @url http://www.espruino.com/Reference#l_Int16Array_Int16Array
    */
-  new(length: number): Int16Array;
-  new(array: ArrayLike<number>): Int16Array;
-  new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Int16Array;
+  new (length: number): Int16Array;
+  new (array: ArrayLike<number>): Int16Array;
+  new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Int16Array;
 }
 
 type Int16Array = ArrayBufferView<Int16Array>;
 
-declare const Int16Array: Int16ArrayConstructor
+declare const Int16Array: Int16ArrayConstructor;
 
 /**
  * This is the built-in JavaScript class for a typed array of 24 bit unsigned
@@ -4677,8 +4741,6 @@ declare class Uint24Array {
   static new(length: number): Uint24Array;
   static new(array: ArrayLike<number>): Uint24Array;
   static new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint24Array;
-
-
 }
 
 interface Uint32ArrayConstructor {
@@ -4695,14 +4757,14 @@ interface Uint32ArrayConstructor {
    * @returns {any} A typed array
    * @url http://www.espruino.com/Reference#l_Uint32Array_Uint32Array
    */
-  new(length: number): Uint32Array;
-  new(array: ArrayLike<number>): Uint32Array;
-  new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint32Array;
+  new (length: number): Uint32Array;
+  new (array: ArrayLike<number>): Uint32Array;
+  new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Uint32Array;
 }
 
 type Uint32Array = ArrayBufferView<Uint32Array>;
 
-declare const Uint32Array: Uint32ArrayConstructor
+declare const Uint32Array: Uint32ArrayConstructor;
 
 interface Int32ArrayConstructor {
   /**
@@ -4718,14 +4780,14 @@ interface Int32ArrayConstructor {
    * @returns {any} A typed array
    * @url http://www.espruino.com/Reference#l_Int32Array_Int32Array
    */
-  new(length: number): Int32Array;
-  new(array: ArrayLike<number>): Int32Array;
-  new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Int32Array;
+  new (length: number): Int32Array;
+  new (array: ArrayLike<number>): Int32Array;
+  new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Int32Array;
 }
 
 type Int32Array = ArrayBufferView<Int32Array>;
 
-declare const Int32Array: Int32ArrayConstructor
+declare const Int32Array: Int32ArrayConstructor;
 
 interface Float32ArrayConstructor {
   /**
@@ -4741,14 +4803,14 @@ interface Float32ArrayConstructor {
    * @returns {any} A typed array
    * @url http://www.espruino.com/Reference#l_Float32Array_Float32Array
    */
-  new(length: number): Float32Array;
-  new(array: ArrayLike<number>): Float32Array;
-  new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Float32Array;
+  new (length: number): Float32Array;
+  new (array: ArrayLike<number>): Float32Array;
+  new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Float32Array;
 }
 
 type Float32Array = ArrayBufferView<Float32Array>;
 
-declare const Float32Array: Float32ArrayConstructor
+declare const Float32Array: Float32ArrayConstructor;
 
 interface Float64ArrayConstructor {
   /**
@@ -4764,14 +4826,14 @@ interface Float64ArrayConstructor {
    * @returns {any} A typed array
    * @url http://www.espruino.com/Reference#l_Float64Array_Float64Array
    */
-  new(length: number): Float64Array;
-  new(array: ArrayLike<number>): Float64Array;
-  new(buffer: ArrayBuffer, byteOffset?: number, length?: number): Float64Array;
+  new (length: number): Float64Array;
+  new (array: ArrayLike<number>): Float64Array;
+  new (buffer: ArrayBuffer, byteOffset?: number, length?: number): Float64Array;
 }
 
 type Float64Array = ArrayBufferView<Float64Array>;
 
-declare const Float64Array: Float64ArrayConstructor
+declare const Float64Array: Float64ArrayConstructor;
 
 interface consoleConstructor {
   /**
@@ -4819,15 +4881,13 @@ interface consoleConstructor {
   error(...text: any[]): void;
 }
 
-interface console {
-
-}
+interface console {}
 
 /**
  * An Object that contains functions for writing to the interactive console
  * @url http://www.espruino.com/Reference#console
  */
-declare const console: consoleConstructor
+declare const console: consoleConstructor;
 
 /**
  * This class provides a software-defined OneWire master. It is designed to be
@@ -5078,9 +5138,17 @@ interface DateConstructor {
    * @returns {any} A Date object
    * @url http://www.espruino.com/Reference#l_Date_Date
    */
-  new(): Date;
-  new(value: number | string): Date;
-  new(year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number): Date;
+  new (): Date;
+  new (value: number | string): Date;
+  new (
+    year: number,
+    month: number,
+    date?: number,
+    hours?: number,
+    minutes?: number,
+    seconds?: number,
+    ms?: number,
+  ): Date;
   (arg?: any): string;
 }
 
@@ -5097,7 +5165,7 @@ interface Date {
    * @returns {number} true if daylight savings time is in effect
    * @url http://www.espruino.com/Reference#l_Date_getIsDST
    */
-  getIsDST(): boolean
+  getIsDST(): boolean;
 
   /**
    * Return the number of milliseconds since 1970
@@ -5188,7 +5256,12 @@ interface Date {
    * @returns {number} The number of milliseconds since 1970
    * @url http://www.espruino.com/Reference#l_Date_setHours
    */
-  setHours(hoursValue: number, minutesValue?: number, secondsValue?: number, millisecondsValue?: number): number;
+  setHours(
+    hoursValue: number,
+    minutesValue?: number,
+    secondsValue?: number,
+    millisecondsValue?: number,
+  ): number;
 
   /**
    * 0..59
@@ -5298,7 +5371,7 @@ interface Date {
  * timezone set by `E.setTimeZone(...)` will be _ignored_.
  * @url http://www.espruino.com/Reference#Date
  */
-declare const Date: DateConstructor
+declare const Date: DateConstructor;
 
 /**
  * These objects are created from `require("Storage").open` and allow Storage items
@@ -5343,8 +5416,6 @@ declare const Date: DateConstructor
  * @url http://www.espruino.com/Reference#StorageFile
  */
 declare class StorageFile {
-
-
   /**
    * Read 'len' bytes of data from the file, and return a String containing those
    * bytes.
@@ -5401,7 +5472,7 @@ declare class StorageFile {
    * end : call the 'end' function on the destination when the source is finished
    * @url http://www.espruino.com/Reference#l_StorageFile_pipe
    */
-  pipe(destination: any, options?: PipeOptions): void
+  pipe(destination: any, options?: PipeOptions): void;
 }
 
 interface ArrayConstructor {
@@ -5423,9 +5494,9 @@ interface ArrayConstructor {
    * @returns {any} An Array
    * @url http://www.espruino.com/Reference#l_Array_Array
    */
-  new(arrayLength?: number): any[];
-  new<T>(arrayLength: number): T[];
-  new<T>(...items: T[]): T[];
+  new (arrayLength?: number): any[];
+  new <T>(arrayLength: number): T[];
+  new <T>(...items: T[]): T[];
   (arrayLength?: number): any[];
   <T>(arrayLength: number): T[];
   <T>(...items: T[]): T[];
@@ -5527,7 +5598,10 @@ interface Array<T> {
    * @returns {any} An array containing the results
    * @url http://www.espruino.com/Reference#l_Array_filter
    */
-  filter<S extends T>(predicate: (value: T, index: number, array: T[]) => value is S, thisArg?: any): S[];
+  filter<S extends T>(
+    predicate: (value: T, index: number, array: T[]) => value is S,
+    thisArg?: any,
+  ): S[];
   filter(predicate: (value: T, index: number, array: T[]) => unknown, thisArg?: any): T[];
 
   /**
@@ -5542,7 +5616,9 @@ interface Array<T> {
    * @returns {any} The array element where `function` returns `true`, or `undefined`
    * @url http://www.espruino.com/Reference#l_Array_find
    */
-  find<S extends T>(predicate: (this: void, value: T, index: number, obj: T[]) => value is S): S | undefined;
+  find<S extends T>(
+    predicate: (this: void, value: T, index: number, obj: T[]) => value is S,
+  ): S | undefined;
   find(predicate: (value: T, index: number, obj: T[]) => unknown): T | undefined;
 
   /**
@@ -5590,7 +5666,10 @@ interface Array<T> {
    * @returns {any} The value returned by the last function called
    * @url http://www.espruino.com/Reference#l_Array_reduce
    */
-  reduce(callback: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
+  reduce(
+    callback: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T,
+    initialValue?: T,
+  ): T;
 
   /**
    * Both remove and add items to an array
@@ -5670,7 +5749,7 @@ interface Array<T> {
    */
   reverse(): T[];
 
-  [index: number]: T
+  [index: number]: T;
 }
 
 /**
@@ -5679,7 +5758,7 @@ interface Array<T> {
  * Array(length)```
  * @url http://www.espruino.com/Reference#Array
  */
-declare const Array: ArrayConstructor
+declare const Array: ArrayConstructor;
 
 interface DataViewConstructor {
   /**
@@ -5701,7 +5780,7 @@ interface DataViewConstructor {
    * @returns {any} A `DataView` object
    * @url http://www.espruino.com/Reference#l_DataView_DataView
    */
-  new(buffer: ArrayBuffer, byteOffset?: number, byteLength?: number): DataView;
+  new (buffer: ArrayBuffer, byteOffset?: number, byteLength?: number): DataView;
 }
 
 interface DataView {
@@ -5854,7 +5933,7 @@ interface DataView {
  * This class helps
  * @url http://www.espruino.com/Reference#DataView
  */
-declare const DataView: DataViewConstructor
+declare const DataView: DataViewConstructor;
 
 /**
  * Built-in class that caches the modules used by the `require` command
@@ -5890,8 +5969,6 @@ declare class Modules {
    * @url http://www.espruino.com/Reference#l_Modules_addCached
    */
   static addCached(id: any, sourcecode: any): void;
-
-
 }
 
 /**
@@ -5913,7 +5990,7 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} An instance of `Graphics` or undefined
    * @url http://www.espruino.com/Reference#l_Graphics_getInstance
    */
-  static getInstance(): Graphics | undefined
+  static getInstance(): Graphics | undefined;
 
   /**
    * Create a Graphics object that renders to an Array Buffer. This will have a field
@@ -5932,7 +6009,17 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} The new Graphics object
    * @url http://www.espruino.com/Reference#l_Graphics_createArrayBuffer
    */
-  static createArrayBuffer(width: number, height: number, bpp: number, options?: { zigzag?: boolean, vertical_byte?: boolean, msb?: boolean, color_order?: "rgb" | "rbg" | "brg" | "bgr" | "grb" | "gbr" }): Graphics<true>;
+  static createArrayBuffer(
+    width: number,
+    height: number,
+    bpp: number,
+    options?: {
+      zigzag?: boolean;
+      vertical_byte?: boolean;
+      msb?: boolean;
+      color_order?: "rgb" | "rbg" | "brg" | "bgr" | "grb" | "gbr";
+    },
+  ): Graphics<true>;
 
   /**
    * Create a Graphics object that renders by calling a JavaScript callback function
@@ -5945,7 +6032,17 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} The new Graphics object
    * @url http://www.espruino.com/Reference#l_Graphics_createCallback
    */
-  static createCallback(width: number, height: number, bpp: number, callback: ((x: number, y: number, col: number) => void) | { setPixel: (x: number, y: number, col: number) => void; fillRect: (x1: number, y1: number, x2: number, y2: number, col: number) => void }): Graphics<false>;
+  static createCallback(
+    width: number,
+    height: number,
+    bpp: number,
+    callback:
+      | ((x: number, y: number, col: number) => void)
+      | {
+          setPixel: (x: number, y: number, col: number) => void;
+          fillRect: (x1: number, y1: number, x2: number, y2: number, col: number) => void;
+        },
+  ): Graphics<false>;
 
   /**
    * Create a Graphics object that renders to SDL window (Linux-based devices only)
@@ -6038,7 +6135,7 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} An ArrayBuffer (or not defined on Graphics instances not created with `Graphics.createArrayBuffer`)
    * @url http://www.espruino.com/Reference#l_Graphics_buffer
    */
-  buffer: IsBuffer extends true ? ArrayBuffer : undefined
+  buffer: IsBuffer extends true ? ArrayBuffer : undefined;
 
   /**
    * The width of this Graphics instance
@@ -6095,7 +6192,11 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @url http://www.espruino.com/Reference#l_Graphics_fillRect
    */
   fillRect(x1: number, y1: number, x2: number, y2: number): Graphics;
-  fillRect(rect: { x: number, y: number, x2: number, y2: number } | { x: number, y: number, w: number, h: number }): Graphics;
+  fillRect(
+    rect:
+      | { x: number; y: number; x2: number; y2: number }
+      | { x: number; y: number; w: number; h: number },
+  ): Graphics;
 
   /**
    * Fill a rectangular area in the Background Color
@@ -6110,7 +6211,11 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @url http://www.espruino.com/Reference#l_Graphics_clearRect
    */
   clearRect(x1: number, y1: number, x2: number, y2: number): Graphics;
-  clearRect(rect: { x: number, y: number, x2: number, y2: number } | { x: number, y: number, w: number, h: number }): Graphics;
+  clearRect(
+    rect:
+      | { x: number; y: number; x2: number; y2: number }
+      | { x: number; y: number; w: number; h: number },
+  ): Graphics;
 
   /**
    * Draw an unfilled rectangle 1px wide in the Foreground Color
@@ -6123,7 +6228,11 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @url http://www.espruino.com/Reference#l_Graphics_drawRect
    */
   drawRect(x1: number, y1: number, x2: number, y2: number): Graphics;
-  drawRect(rect: { x: number, y: number, x2: number, y2: number } | { x: number, y: number, w: number, h: number }): Graphics;
+  drawRect(
+    rect:
+      | { x: number; y: number; x2: number; y2: number }
+      | { x: number; y: number; w: number; h: number },
+  ): Graphics;
 
   /**
    * Draw a filled circle in the Foreground Color
@@ -6361,7 +6470,12 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} The instance of Graphics this was called on, to allow call chaining
    * @url http://www.espruino.com/Reference#l_Graphics_setFontCustom
    */
-  setFontCustom(bitmap: ArrayBuffer, firstChar: number, width: number | string, height: number): Graphics;
+  setFontCustom(
+    bitmap: ArrayBuffer,
+    firstChar: number,
+    width: number | string,
+    height: number,
+  ): Graphics;
 
   /**
    *
@@ -6412,7 +6526,7 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} Get the name of the current font
    * @url http://www.espruino.com/Reference#l_Graphics_getFont
    */
-  getFont(): FontNameWithScaleFactor | "Custom"
+  getFont(): FontNameWithScaleFactor | "Custom";
 
   /**
    * Return an array of all fonts currently in the Graphics library.
@@ -6455,7 +6569,13 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} An object containing `{width,height,etc}` for the string - see below
    * @url http://www.espruino.com/Reference#l_Graphics_stringMetrics
    */
-  stringMetrics(str: string): { width: number, height: number, unrenderableChars: boolean, imageCount : number, maxImageHeight : number };
+  stringMetrics(str: string): {
+    width: number;
+    height: number;
+    unrenderableChars: boolean;
+    imageCount: number;
+    maxImageHeight: number;
+  };
 
   /**
    * Wrap a string to the given pixel width using the current font, and return the
@@ -6668,7 +6788,11 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} An object containing `{width,height,bpp,transparent}` for the image
    * @url http://www.espruino.com/Reference#l_Graphics_imageMetrics
    */
-  imageMetrics(img: Image): { width: number, height: number, bpp: number, transparent: number, frames?: ArrayBuffer[] } | undefined;
+  imageMetrics(
+    img: Image,
+  ):
+    | { width: number; height: number; bpp: number; transparent: number; frames?: ArrayBuffer[] }
+    | undefined;
 
   /**
    * Image can be:
@@ -6726,7 +6850,12 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} The instance of Graphics this was called on, to allow call chaining
    * @url http://www.espruino.com/Reference#l_Graphics_drawImage
    */
-  drawImage(image: Image, x: number, y: number, options?: { rotate?: number, scale?: number, frame?: number }): Graphics;
+  drawImage(
+    image: Image,
+    x: number,
+    y: number,
+    options?: { rotate?: number; scale?: number; frame?: number },
+  ): Graphics;
 
   /**
    * Draws multiple images *at once* - which avoids flicker on unbuffered systems
@@ -6756,7 +6885,19 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} The instance of Graphics this was called on, to allow call chaining
    * @url http://www.espruino.com/Reference#l_Graphics_drawImages
    */
-  drawImages(layers: { x: number, y: number, image: Image, scale?: number, rotate?: number, center?: boolean, repeat?: boolean, nobounds?: boolean }[], options?: { x: number, y: number, width: number, height: number }): Graphics;
+  drawImages(
+    layers: {
+      x: number;
+      y: number;
+      image: Image;
+      scale?: number;
+      rotate?: number;
+      center?: boolean;
+      repeat?: boolean;
+      nobounds?: boolean;
+    }[],
+    options?: { x: number; y: number; width: number; height: number },
+  ): Graphics;
 
   /**
    * Return this Graphics object as an Image that can be used with
@@ -6797,7 +6938,7 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} An object {x1,y1,x2,y2} containing the modified area, or undefined if not modified
    * @url http://www.espruino.com/Reference#l_Graphics_getModified
    */
-  getModified(reset?: boolean): { x1: number, y1: number, x2: number, y2: number };
+  getModified(reset?: boolean): { x1: number; y1: number; x2: number; y2: number };
 
   /**
    * Scroll the contents of this graphics in a certain direction. The remaining area
@@ -6829,7 +6970,15 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} The instance of Graphics this was called on, to allow call chaining
    * @url http://www.espruino.com/Reference#l_Graphics_blit
    */
-  blit(options: { x1: number, y1: number, x2: number, y2: number, w: number, h: number, setModified?: boolean }): Graphics;
+  blit(options: {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    w: number;
+    h: number;
+    setModified?: boolean;
+  }): Graphics;
 
   /**
    * Create a Windows BMP file from this Graphics instance, and return it as a
@@ -6880,7 +7029,10 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} Array with calculated points
    * @url http://www.espruino.com/Reference#l_Graphics_quadraticBezier
    */
-  quadraticBezier(arr: [number, number, number, number, number, number], options?: number): number[];
+  quadraticBezier(
+    arr: [number, number, number, number, number, number],
+    options?: number,
+  ): number[];
 
   /**
    * Transformation can be:
@@ -6906,7 +7058,12 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} Array of transformed vertices
    * @url http://www.espruino.com/Reference#l_Graphics_transformVertices
    */
-  transformVertices(arr: number[], transformation: { x?: number, y?: number, scale?: number, rotate?: number } | [number, number, number, number, number, number]): number[];
+  transformVertices(
+    arr: number[],
+    transformation:
+      | { x?: number; y?: number; scale?: number; rotate?: number }
+      | [number, number, number, number, number, number],
+  ): number[];
 
   /**
    * Flood fills the given Graphics instance out from a particular point.
@@ -6959,7 +7116,9 @@ declare class Graphics<IsBuffer extends boolean = boolean> {
    * @returns {any} The instance of Graphics this was called on, to allow call chaining
    * @url http://www.espruino.com/Reference#l_Graphics_setTheme
    */
-  setTheme(theme: { [key in keyof Theme]?: Theme[key] extends number ? ColorResolvable : Theme[key] }): Graphics;
+  setTheme(theme: {
+    [key in keyof Theme]?: Theme[key] extends number ? ColorResolvable : Theme[key];
+  }): Graphics;
 
   /**
    * Perform a filter on the current Graphics instance. Requires the Graphics
@@ -7104,8 +7263,6 @@ declare class WioLTE {
    * @url http://www.espruino.com/Reference#l_WioLTE_A4
    */
   static A4: any;
-
-
 }
 
 /**
@@ -7120,8 +7277,6 @@ declare class WioLTE {
  * @url http://www.espruino.com/Reference#Qwiic
  */
 declare class Qwiic {
-
-
   /**
    * This turns power for the given Qwiic connector on or off. See `Qwiic` for more information.
    *
@@ -7226,8 +7381,6 @@ declare class Jolt {
    * @url http://www.espruino.com/Reference#l_Jolt_selfTest
    */
   static selfTest(): boolean;
-
-
 }
 
 /**
@@ -7264,8 +7417,6 @@ declare class Unistroke {
    * @url http://www.espruino.com/Reference#l_Unistroke_recognise
    */
   static recognise(strokes: any, xy: any): any;
-
-
 }
 
 /**
@@ -7822,7 +7973,28 @@ declare class NRF {
    * @param {any} [options] - [optional] Object containing options
    * @url http://www.espruino.com/Reference#l_NRF_setServices
    */
-  static setServices(data: { [key: number]: { [key: number]: { value?: string, maxLen?: number, broadcast?: boolean, readable?: boolean, writable?: boolean, notify?: boolean, indicate?: boolean, description?: string, security?: { read?: { encrypted?: boolean, mitm?: boolean, lesc?: boolean, signed?: boolean }, write?: { encrypted?: boolean, mitm?: boolean, lesc?: boolean, signed?: boolean } }, onWrite?: (evt: { data: ArrayBuffer }) => void } } }, options?: any): void;
+  static setServices(
+    data: {
+      [key: number]: {
+        [key: number]: {
+          value?: string;
+          maxLen?: number;
+          broadcast?: boolean;
+          readable?: boolean;
+          writable?: boolean;
+          notify?: boolean;
+          indicate?: boolean;
+          description?: string;
+          security?: {
+            read?: { encrypted?: boolean; mitm?: boolean; lesc?: boolean; signed?: boolean };
+            write?: { encrypted?: boolean; mitm?: boolean; lesc?: boolean; signed?: boolean };
+          };
+          onWrite?: (evt: { data: ArrayBuffer }) => void;
+        };
+      };
+    },
+    options?: any,
+  ): void;
 
   /**
    * Update values for the services and characteristics Espruino advertises. Only
@@ -8032,7 +8204,10 @@ declare class NRF {
    * @param {any} [options] - [optional] A time in milliseconds to scan for (defaults to 2000), Or an optional object `{filters: ..., timeout : ..., active: bool}` (as would be passed to `NRF.requestDevice`) to filter devices by
    * @url http://www.espruino.com/Reference#l_NRF_findDevices
    */
-  static findDevices(callback: (devices: BluetoothDevice[]) => void, options?: number | { filters?: NRFFilters[], timeout?: number, active?: boolean }): void;
+  static findDevices(
+    callback: (devices: BluetoothDevice[]) => void,
+    options?: number | { filters?: NRFFilters[]; timeout?: number; active?: boolean },
+  ): void;
 
   /**
    * Start/stop listening for RSSI values on the currently active connection (where
@@ -8184,7 +8359,7 @@ declare class NRF {
    * @param {any} callback - A callback function to be called when the data is sent
    * @url http://www.espruino.com/Reference#l_NRF_sendHIDReport
    */
-  static sendHIDReport(data: number[], callback?: () => void): void
+  static sendHIDReport(data: number[], callback?: () => void): void;
 
   /**
    * Check if Apple Notification Center Service (ANCS) is currently active on the BLE
@@ -8439,7 +8614,13 @@ declare class NRF {
    * @returns {any} A `Promise` that is resolved (or rejected) when the connection is complete
    * @url http://www.espruino.com/Reference#l_NRF_requestDevice
    */
-  static requestDevice(options?: { filters?: NRFFilters[], timeout?: number, active?: boolean, phy?: string, extended?: boolean }): Promise<any>;
+  static requestDevice(options?: {
+    filters?: NRFFilters[];
+    timeout?: number;
+    active?: boolean;
+    phy?: string;
+    extended?: boolean;
+  }): Promise<any>;
 
   /**
    * Connect to a BLE device by MAC address. Returns a promise, the argument of which
@@ -8679,8 +8860,6 @@ declare class NRF {
    * @url http://www.espruino.com/Reference#l_NRF_startBonding
    */
   static startBonding(forceRepair: boolean): any;
-
-
 }
 
 /**
@@ -8688,8 +8867,6 @@ declare class NRF {
  * @url http://www.espruino.com/Reference#WLAN
  */
 declare class WLAN {
-
-
   /**
    * Connect to a wireless network
    *
@@ -8740,8 +8917,6 @@ declare class WLAN {
  * @url http://www.espruino.com/Reference#Ethernet
  */
 declare class Ethernet {
-
-
   /**
    * Get the current IP address, subnet, gateway and mac address.
    *
@@ -8813,8 +8988,6 @@ declare class url {
    * @url http://www.espruino.com/Reference#l_url_parse
    */
   static parse(urlStr: any, parseQuery: boolean): any;
-
-
 }
 
 /**
@@ -8822,8 +8995,6 @@ declare class url {
  * @url http://www.espruino.com/Reference#Server
  */
 declare class Server {
-
-
   /**
    * Start listening for new connections on the given port
    *
@@ -8928,7 +9099,7 @@ declare class Socket {
    * end : call the 'end' function on the destination when the source is finished
    * @url http://www.espruino.com/Reference#l_Socket_pipe
    */
-  pipe(destination: any, options?: PipeOptions): void
+  pipe(destination: any, options?: PipeOptions): void;
 
   /**
    * This function writes the `data` argument as a string. Data that is passed in
@@ -9030,8 +9201,6 @@ declare class dgramSocket {
  * @url http://www.espruino.com/Reference#httpSrv
  */
 declare class httpSrv {
-
-
   /**
    * Start listening for new HTTP connections on the given port
    *
@@ -9062,7 +9231,7 @@ declare class httpSRq {
    * * `data` A string containing one or more characters of received data
    * @url http://www.espruino.com/Reference#l_httpSRq_data
    */
-  static on(event: "data", callback: (data: any) => void): void;
+  on(event: "data", callback: (data: any) => void): void;
 
   /**
    * Called when the connection closes.
@@ -9070,7 +9239,7 @@ declare class httpSRq {
    * @param {() => void} callback - A function that is executed when the event occurs.
    * @url http://www.espruino.com/Reference#l_httpSRq_close
    */
-  static on(event: "close", callback: () => void): void;
+  on(event: "close", callback: () => void): void;
 
   /**
    * The headers to sent to the server with this HTTP request.
@@ -9123,7 +9292,7 @@ declare class httpSRq {
    * end : call the 'end' function on the destination when the source is finished
    * @url http://www.espruino.com/Reference#l_httpSRq_pipe
    */
-  pipe(dest: any, options?: PipeOptions): void
+  pipe(dest: any, options?: PipeOptions): void;
 }
 
 /**
@@ -9346,7 +9515,7 @@ declare class httpCRs {
    * end : call the 'end' function on the destination when the source is finished
    * @url http://www.espruino.com/Reference#l_httpCRs_pipe
    */
-  pipe(destination: any, options?: PipeOptions): void
+  pipe(destination: any, options?: PipeOptions): void;
 }
 
 /**
@@ -9425,8 +9594,6 @@ declare class Trig {
    * @url http://www.espruino.com/Reference#l_Trig_getErrorArray
    */
   static getErrorArray(): any;
-
-
 }
 
 /**
@@ -9569,7 +9736,10 @@ declare class Bangle {
    * * `hrm` An object with heart rate info (see below)
    * @url http://www.espruino.com/Reference#l_Bangle_HRM
    */
-  static on(event: "HRM", callback: (hrm: { bpm: number, confidence: number, raw: Uint8Array }) => void): void;
+  static on(
+    event: "HRM",
+    callback: (hrm: { bpm: number; confidence: number; raw: Uint8Array }) => void,
+  ): void;
 
   /**
    * Called when heart rate sensor data is available - see `Bangle.setHRMPower(1)`.
@@ -9586,7 +9756,10 @@ declare class Bangle {
    * * `hrm` A object containing instant readings from the heart rate sensor
    * @url http://www.espruino.com/Reference#l_Bangle_HRM-raw
    */
-  static on(event: "HRM-raw", callback: (hrm: { raw: number, filt: number, bpm: number, confidence: number }) => void): void;
+  static on(
+    event: "HRM-raw",
+    callback: (hrm: { raw: number; filt: number; bpm: number; confidence: number }) => void,
+  ): void;
 
   /**
    * Called when an environment sample heart rate sensor data is available (this is the amount of light received by the HRM sensor from the environment when its LED is off). On the newest VC31B based watches this is only 4 bit (0..15).
@@ -9658,7 +9831,16 @@ declare class Bangle {
    * * `data` `{dir, double, x, y, z}`
    * @url http://www.espruino.com/Reference#l_Bangle_tap
    */
-  static on(event: "tap", callback: (data: { dir: "left" | "right" | "top" | "bottom" | "front" | "back", double: boolean, x: TapAxis, y: TapAxis, z: TapAxis }) => void): void;
+  static on(
+    event: "tap",
+    callback: (data: {
+      dir: "left" | "right" | "top" | "bottom" | "front" | "back";
+      double: boolean;
+      x: TapAxis;
+      y: TapAxis;
+      z: TapAxis;
+    }) => void,
+  ): void;
 
   /**
    * Emitted when a 'gesture' (fast movement) is detected
@@ -9680,7 +9862,10 @@ declare class Bangle {
    * * `weights` An array of floating point values output by the model
    * @url http://www.espruino.com/Reference#l_Bangle_aiGesture
    */
-  static on(event: "aiGesture", callback: (gesture: string | undefined, weights: number[]) => void): void;
+  static on(
+    event: "aiGesture",
+    callback: (gesture: string | undefined, weights: number[]) => void,
+  ): void;
 
   /**
    * Emitted when a swipe on the touchscreen is detected (a movement from
@@ -9746,7 +9931,7 @@ declare class Bangle {
    * * `event` Object of form `{xy:Uint8Array([x1,y1,x2,y2...])}` containing touch coordinates
    * @url http://www.espruino.com/Reference#l_Bangle_stroke
    */
-  static on(event: "stroke", callback: (event: { xy: Uint8Array, stroke?: string }) => void): void;
+  static on(event: "stroke", callback: (event: { xy: Uint8Array; stroke?: string }) => void): void;
 
   /**
    * Emitted at midnight (at the point the `day` health info is reset to 0).
@@ -9900,8 +10085,13 @@ declare class Bangle {
    */
   static setLCDOverlay(img: any, x: number, y: number): void;
   static setLCDOverlay(): void;
-  static setLCDOverlay(img: any, x: number, y: number, options: { id : string, remove: () => void }): void;
-  static setLCDOverlay(img: any, options: { id : string }): void;
+  static setLCDOverlay(
+    img: any,
+    x: number,
+    y: number,
+    options: { id: string; remove: () => void },
+  ): void;
+  static setLCDOverlay(img: any, options: { id: string }): void;
 
   /**
    * This function can be used to turn Bangle.js's LCD power saving on or off.
@@ -10002,7 +10192,9 @@ declare class Bangle {
    * @param {any} options
    * @url http://www.espruino.com/Reference#l_Bangle_setOptions
    */
-  static setOptions(options: { [key in keyof BangleOptions]?: BangleOptions<ShortBoolean>[key] }): void;
+  static setOptions(options: {
+    [key in keyof BangleOptions]?: BangleOptions<ShortBoolean>[key];
+  }): void;
 
   /**
    * Return the current state of options as set by `Bangle.setOptions`
@@ -10384,7 +10576,7 @@ declare class Bangle {
    * @returns {any} {x:..., y:...}
    * @url http://www.espruino.com/Reference#l_Bangle_project
    */
-  static project(latlong: { lat: number, lon: number }): { x: number, y: number };
+  static project(latlong: { lat: number; lon: number }): { x: number; y: number };
 
   /**
    * Use the piezo speaker to Beep for a certain time period and frequency
@@ -10579,10 +10771,21 @@ declare class Bangle {
    * @url http://www.espruino.com/Reference#l_Bangle_setUI
    */
   static setUI(type?: undefined): void;
-  static setUI(type: SetUIArg<"updown" | "leftright">, callback: (direction?: -1 | 1) => void): void;
+  static setUI(
+    type: SetUIArg<"updown" | "leftright">,
+    callback: (direction?: -1 | 1) => void,
+  ): void;
   static setUI(type: SetUIArg<"clock">): void;
   static setUI(type: SetUIArg<"clockupdown">, callback?: (direction: -1 | 1) => void): void;
-  static setUI(type: SetUIArg<"custom"> & { touch?: TouchCallback; swipe?: SwipeCallback; drag?: DragCallback; btn?: (n: 1 | 2 | 3) => void; clock?: boolean | 0 | 1 }): void;
+  static setUI(
+    type: SetUIArg<"custom"> & {
+      touch?: TouchCallback;
+      swipe?: SwipeCallback;
+      drag?: DragCallback;
+      btn?: (n: 1 | 2 | 3) => void;
+      clock?: boolean | 0 | 1;
+    },
+  ): void;
 
   /**
    * @url http://www.espruino.com/Reference#l_Bangle_setUI
@@ -10604,7 +10807,7 @@ declare class Bangle {
    * @returns {any} An object of the form `{x,y,w,h,x2,y2}`
    * @url http://www.espruino.com/Reference#l_Bangle_appRect
    */
-  static appRect: { x: number, y: number, w: number, h: number, x2: number, y2: number };
+  static appRect: { x: number; y: number; w: number; h: number; x2: number; y2: number };
 
   /**
    * @url http://www.espruino.com/Reference#l_Bangle_drawWidgets
@@ -10628,9 +10831,7 @@ declare class Bangle {
   static strokes: undefined | { [key: string]: Unistroke };
 }
 
-interface FileConstructor {
-
-}
+interface FileConstructor {}
 
 interface File {
   /**
@@ -10689,7 +10890,7 @@ interface File {
    * end : call the 'end' function on the destination when the source is finished
    * @url http://www.espruino.com/Reference#l_File_pipe
    */
-  pipe(destination: any, options?: PipeOptions): void
+  pipe(destination: any, options?: PipeOptions): void;
 }
 
 /**
@@ -10703,7 +10904,7 @@ interface File {
  * *must* call `E.unmountSD()` or you may cause damage to the card.
  * @url http://www.espruino.com/Reference#File
  */
-declare const File: FileConstructor
+declare const File: FileConstructor;
 
 /**
  * Class containing AES encryption/decryption
@@ -10732,8 +10933,6 @@ declare class AES {
    * @url http://www.espruino.com/Reference#l_AES_decrypt
    */
   static decrypt(passphrase: any, key: any, options?: any): ArrayBuffer;
-
-
 }
 
 /**
@@ -10787,8 +10986,6 @@ declare class Pixl {
    * @url http://www.espruino.com/Reference#l_Pixl_menu
    */
   static menu(menu: Menu): MenuInstance;
-
-
 }
 
 /**
@@ -11099,8 +11296,6 @@ declare class Puck {
    * @url http://www.espruino.com/Reference#l_Puck_selfTest
    */
   static selfTest(): boolean;
-
-
 }
 
 /**
@@ -11108,8 +11303,6 @@ declare class Puck {
  * @url http://www.espruino.com/Reference#TFMicroInterpreter
  */
 declare class TFMicroInterpreter {
-
-
   /**
    * @returns {any} An arraybuffer referencing the input data
    * @url http://www.espruino.com/Reference#l_TFMicroInterpreter_getInput
@@ -11131,11 +11324,7 @@ declare class TFMicroInterpreter {
 /**
  * @url http://www.espruino.com/Reference#Dickens
  */
-declare class Dickens {
-
-
-
-}
+declare class Dickens {}
 
 /**
  * A Web Bluetooth-style device - you can request one using
@@ -11247,8 +11436,6 @@ declare class BluetoothDevice {
  * @url http://www.espruino.com/Reference#BluetoothRemoteGATTServer
  */
 declare class BluetoothRemoteGATTServer {
-
-
   /**
    * Connect to a BLE device - returns a promise, the argument of which is the
    * `BluetoothRemoteGATTServer` connection.
@@ -11395,8 +11582,6 @@ declare class BluetoothRemoteGATTServer {
  * @url http://www.espruino.com/Reference#BluetoothRemoteGATTService
  */
 declare class BluetoothRemoteGATTService {
-
-
   /**
    * @returns {any} The `BluetoothDevice` this Service came from
    * @url http://www.espruino.com/Reference#l_BluetoothRemoteGATTService_device
@@ -11591,8 +11776,6 @@ declare class Badge {
    * @url http://www.espruino.com/Reference#l_Badge_setContrast
    */
   static setContrast(c: number): void;
-
-
 }
 
 /**
@@ -11690,8 +11873,6 @@ declare class Microbit {
    * @url http://www.espruino.com/Reference#l_Microbit_record
    */
   static record(samplesPerSecond: any, callback: any, samples?: any): void;
-
-
 }
 
 interface BooleanConstructor {
@@ -11703,16 +11884,13 @@ interface BooleanConstructor {
    * @returns {boolean} A Boolean object
    * @url http://www.espruino.com/Reference#l_Boolean_Boolean
    */
-  new(...value: any[]): Number;
+  new (...value: any[]): Number;
   (value: any): boolean;
 }
 
-interface Boolean {
+interface Boolean {}
 
-}
-
-
-declare const Boolean: BooleanConstructor
+declare const Boolean: BooleanConstructor;
 
 // GLOBALS
 
@@ -11823,7 +12001,7 @@ declare const global: {
   acceleration: typeof acceleration;
   compass: typeof compass;
   [key: string]: any;
-}
+};
 
 /**
  * A reference to the global scope, where everything is defined.
@@ -12459,7 +12637,11 @@ declare function analogRead(pin: Pin): number;
  * An object containing options for analog output - see below
  * @url http://www.espruino.com/Reference#l__global_analogWrite
  */
-declare function analogWrite(pin: Pin, value: number, options?: { freq?: number, soft?: boolean, forceSoft?: boolean }): void;
+declare function analogWrite(
+  pin: Pin,
+  value: number,
+  options?: { freq?: number; soft?: boolean; forceSoft?: boolean },
+): void;
 
 /**
  * Pulse the pin with the value for the given time in milliseconds. It uses a
@@ -12600,7 +12782,11 @@ declare function getPinMode(pin: Pin): PinMode;
  * @param {any} data - The data to shift out (see `E.toUint8Array` for info on the forms this can take)
  * @url http://www.espruino.com/Reference#l__global_shiftOut
  */
-declare function shiftOut(pins: Pin | Pin[], options: { clk?: Pin, clkPol?: boolean, repeat?: number }, data: Uint8ArrayResolvable): void;
+declare function shiftOut(
+  pins: Pin | Pin[],
+  options: { clk?: Pin; clkPol?: boolean; repeat?: number },
+  data: Uint8ArrayResolvable,
+): void;
 
 /**
  * Call the function specified when the pin changes. Watches set with `setWatch`
@@ -12663,7 +12849,20 @@ declare function shiftOut(pins: Pin | Pin[], options: { clk?: Pin, clkPol?: bool
  * @returns {any} An ID that can be passed to clearWatch
  * @url http://www.espruino.com/Reference#l__global_setWatch
  */
-declare function setWatch(func: ((arg: { state: boolean, time: number, lastTime: number }) => void) | string, pin: Pin, options?: boolean | { repeat?: boolean, edge?: "rising" | "falling" | "both", debounce?: number, irq?: boolean, data?: Pin, hispeed?: boolean }): number;
+declare function setWatch(
+  func: ((arg: { state: boolean; time: number; lastTime: number }) => void) | string,
+  pin: Pin,
+  options?:
+    | boolean
+    | {
+        repeat?: boolean;
+        edge?: "rising" | "falling" | "both";
+        debounce?: number;
+        irq?: boolean;
+        data?: Pin;
+        hispeed?: boolean;
+      },
+): number;
 
 /**
  * Clear the Watch that was created with setWatch. If no parameter is supplied, all watches will be removed.
@@ -13350,7 +13549,12 @@ declare module "Storage" {
    * @returns {boolean} True on success, false on failure
    * @url http://www.espruino.com/Reference#l_Storage_write
    */
-  function write(name: string | ArrayBuffer | ArrayBufferView | number[] | object, data: any, offset?: number, size?: number): boolean;
+  function write(
+    name: string | ArrayBuffer | ArrayBufferView | number[] | object,
+    data: any,
+    offset?: number,
+    size?: number,
+  ): boolean;
 
   /**
    * Write/create a file in the flash storage area. This is nonvolatile and will not
@@ -13746,7 +13950,17 @@ declare module "Wifi" {
    * @param {any} callback - A `callback(err)`  function to be called back on completion. `err` is null on success, or contains an error string on failure.
    * @url http://www.espruino.com/Reference#l_Wifi_connect
    */
-  function connect(ssid: string, options?: { password?: string, dnsServers?: string[], authMode?: string, channel?: number, bssid?: string }, callback?: (err: string | null) => void): void;
+  function connect(
+    ssid: string,
+    options?: {
+      password?: string;
+      dnsServers?: string[];
+      authMode?: string;
+      channel?: number;
+      bssid?: string;
+    },
+    callback?: (err: string | null) => void,
+  ): void;
 
   /**
    * Perform a scan for access points. This will enable the station mode if it is not
@@ -13795,7 +14009,16 @@ declare module "Wifi" {
    * @param {any} callback - Optional `callback(err)` function to be called when the AP is successfully started. `err==null` on success, or an error string on failure.
    * @url http://www.espruino.com/Reference#l_Wifi_startAP
    */
-  function startAP(ssid: string, options?: { password?: string, authMode?: "open" | "wpa2" | "wpa" | "wpa_wpa2", channel?: number, hidden?: boolean }, callback?: (err: string | null) => void): void;
+  function startAP(
+    ssid: string,
+    options?: {
+      password?: string;
+      authMode?: "open" | "wpa2" | "wpa" | "wpa_wpa2";
+      channel?: number;
+      hidden?: boolean;
+    },
+    callback?: (err: string | null) => void,
+  ): void;
 
   /**
    * Retrieve the current overall WiFi configuration. This call provides general
@@ -14317,7 +14540,7 @@ declare module "fs" {
    * end : call the 'end' function on the destination when the source is finished
    * @url http://www.espruino.com/Reference#l_fs_pipe
    */
-  function pipe(destination: any, options?: PipeOptions): void
+  function pipe(destination: any, options?: PipeOptions): void;
 
   /**
    * List all files in the supplied directory, returning them as an array of strings.
@@ -14653,8 +14876,11 @@ declare module "heatshrink" {
 }
 
 // ============= 自定义 =====
-
-declare module "http" {
-  function createServer(f: (req: httpSRq, res:httpSRs) => void): httpSrv;
+interface  httpSRq {
+  on(event: "data", f: (dta: any) => void);
+  on(event: "end", callback: () => void): void;
 }
 
+declare module "http" {
+  function createServer(f: (req: httpSRq, res: httpSRs) => void): httpSrv;
+}

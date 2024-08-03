@@ -61,7 +61,18 @@ espruino -p tcp://192.168.2.167 ./dist/main.js
 ```
 
 上传代码到开发版
-espruino -p tcp://192.168.2.167 .\dist\app.js --storage .boot0:.boot0
+espruino -p tcp://192.168.2.167 .\dist\app.js
+espruino -b 115200 app.js -e "save()"
+espruino -b 115200 .\dist\app.js -e "save();require('ESP8266').reboot()"
+espruino -b 115200 .\dist\app.js --storage .boot0:.boot0
 
 require("Storage").read(".boot0")
+删除
+require("Storage").erase(".bootcde")
+require("Storage").erase(".boot0")
 require("Storage").list()
+require("Storage").write(".boot0", )
+require("Storage").write(".boot0",'require("./app.js")')
+存储到 .bootcde
+E.setBootCode("")
+require("ESP8266").reboot()
