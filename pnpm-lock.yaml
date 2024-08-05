@@ -17,9 +17,6 @@ importers:
       '@swc/core':
         specifier: ^1.7.5
         version: 1.7.6
-      '@types/espruino':
-        specifier: ^1.94.10
-        version: 1.94.10
       tsup:
         specifier: ^8.0.2
         version: 8.2.4(@swc/core@1.7.6)(postcss@8.4.40)(typescript@5.5.4)
@@ -698,9 +695,6 @@ packages:
 
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
-
-  '@types/espruino@1.94.10':
-    resolution: {integrity: sha512-+rFJlVs1Weob0OnyT4UpRmnXl88t61O1bChmZaT+3AZl1xm1P1KrfZLuMnflsIBWq3FnsvC1wP0b340r6LhesQ==}
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
@@ -2409,8 +2403,6 @@ snapshots:
   '@types/babel__traverse@7.20.6':
     dependencies:
       '@babel/types': 7.25.2
-
-  '@types/espruino@1.94.10': {}
 
   '@types/estree@1.0.5': {}
 

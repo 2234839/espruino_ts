@@ -9,7 +9,6 @@
     "flashBase": "tsx ./scripts/flashBase.ts && espruino -b 115200 ./dist/base.js",
     "flashApp": "tsx ./scripts/flashApp.ts && espruino -b 115200 ./dist/app.js",
     "flashAppNet": "tsx ./scripts/flashApp.ts && espruino -p tcp://192.168.2.167 ./dist/app.js",
-
     "mini": "npm run uglifyjs_mini && npm run terser_mini",
     "uglifyjs_mini": "uglifyjs -c 'toplevel,expression,keep_fargs,passes=5,unsafe,unsafe_comps,unsafe_Function,unsafe_math,unsafe_proto,unsafe_regexp,unsafe_undefined' -o ./dist/app.uglifyjs_mini.js -- ./dist/app.js",
     "terser_mini": "terser --compress ecma=2015,computed_props=false,hoist_funs  -o dist/app.terser_mini.js -- dist/app.js"
@@ -19,7 +18,6 @@
   "license": "ISC",
   "devDependencies": {
     "@swc/core": "^1.7.5",
-    "@types/espruino": "^1.94.10",
     "tsup": "^8.0.2",
     "typescript": "^5.4.2"
   },

@@ -36,9 +36,19 @@ function map(angle: number, minPulseWidth: number, midPulseWidth: number, maxPul
   }
 }
 setServoAngle(0);
-import http = require("http");
+const http = require("http");
 http
   .createServer((req, res) => {
+    // 设置 CORS 头信息
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+    if (req.method === "OPTIONS") {
+      // 对预检请求作出响应
+      sendRes(res, 204, "");
+      return;
+    }
     let body = "";
     req.on("data", (data) => (body += data));
     req.on("end", function () {

@@ -1,6 +1,10 @@
 import { createMemo, createSignal, onCleanup, onMount } from "solid-js";
 import { createStore } from "solid-js/store";
-import { render } from "solid-js/web";
+import { effect, render } from "solid-js/web";
+const url = "http://192.168.2.167/angle";
+const steering = async (angle: number) => {
+  await fetch(url, { method: "POST", body: angle.toString() });
+};
 
 function App() {
   const [gamepads, setGamepads] = createStore<{ [key: number]: Gamepad }>({});
@@ -20,6 +24,7 @@ function App() {
         return axes()[index];
       });
     return {
+      /** 摇杆四个轴，取值范围是-1 到 1 */
       rocker_left_x: useAxesMap(0),
       rocker_left_y: useAxesMap(1),
       rocker_right_x: useAxesMap(2),
@@ -49,6 +54,11 @@ function App() {
     };
   };
   const gameBtn = useGamepadButtonMap();
+
+  effect(() => {
+    const v = (gameBtn.trigger_left() ?? 0) * 180;
+    steering(v);
+  });
   onMount(() => {
     const id = setInterval(() => {
       const gamepad = Object.values(gamepads)[0];
@@ -98,7 +108,6 @@ function App() {
               {key}:{value()}
             </div>
           ))}
-          {/* <div>buttons:{gamepad.buttons.toString()}</div> */}
         </div>
       ))}
     </>
