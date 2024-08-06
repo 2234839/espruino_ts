@@ -1,6 +1,7 @@
-import { createMemo, createSignal, onCleanup, onMount } from "solid-js";
+import { createEffect, createMemo, createSignal, onCleanup, onMount } from "solid-js";
 import { createStore } from "solid-js/store";
 import { effect, render } from "solid-js/web";
+import { throttled } from "./util/hooks/solid";
 const url = "http://192.168.2.167/angle";
 const steering = async (angle: number) => {
   await fetch(url, { method: "POST", body: angle.toString() });
@@ -14,6 +15,7 @@ function App() {
   const [buttons, setButtons] = createSignal<
     { value: number; pressed: boolean; touched: boolean }[]
   >([]);
+  /** 映射手柄按钮 */
   const useGamepadButtonMap = () => {
     const useButtonMap = (index: number) =>
       createMemo((): number | undefined => {
@@ -55,16 +57,18 @@ function App() {
   };
   const gameBtn = useGamepadButtonMap();
 
-  effect(() => {
-    const v = (gameBtn.trigger_left() ?? 0) * 180;
-    steering(v);
-  });
   onMount(() => {
     const id = setInterval(() => {
       const gamepad = Object.values(gamepads)[0];
       if (!gamepad) return;
       setAxes([...gamepad.axes]);
       setButtons([...gamepad.buttons]);
+      if (gameBtn.shoulder_left() === 1) {
+        setAngle((angle() - 10) % 180);
+      }
+      if (gameBtn.shoulder_right() === 1) {
+        setAngle((angle() + 10) % 180);
+      }
     }, 100);
     onCleanup(() => {
       clearInterval(id);
@@ -95,10 +99,26 @@ function App() {
       window.removeEventListener("gamepaddisconnected", onGamepadDisconnected);
     });
   });
+  const [angle, setAngle] = createSignal(0);
+  const steeringThrottled = throttled(() => {
+    const v = (gameBtn.trigger_left() ?? 0) * 180 || angle();
+    console.log("[v]", v);
+    steering(v);
+  }, 100);
 
+  effect(() => {
+    gameBtn.trigger_left(), angle();
+    steeringThrottled();
+  });
   return (
     <>
-      test
+      <input
+        type="range"
+        min="0"
+        max="180"
+        value={angle()}
+        onInput={(e) => setAngle(Number(e.target.value))}
+      />
       {Object.entries(gamepads).map(([key, gamepad]) => (
         <div>
           <div>index:{key}</div>

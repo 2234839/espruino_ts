@@ -1,5 +1,8 @@
+import { light } from "./led";
+
 let old: number = -1;
 let id: any;
+light(1000);
 function setServoAngle(angle: number) {
   /** 50hz 等于 20ms 一个周期 */
   const freq = 50;
@@ -12,8 +15,8 @@ function setServoAngle(angle: number) {
     clearTimeout(id);
   }
   analogWrite(NodeMCU.D2, dutyCycle, { freq });
-  // 舵机0.3秒转动60度
-  const speed = 300 / 60;
+  // 文档中舵机0.3秒转动60度,实际运转比这快一些
+  const speed = (300 / 60) * 0.6;
   let time = 180 * speed;
   if (old === -1) {
     time = Math.abs(angle - old) * speed;

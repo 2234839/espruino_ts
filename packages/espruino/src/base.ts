@@ -11,40 +11,41 @@ import { light } from "./led";
 
 // 基座代码
 
-light(3000);
+light(100);
 
 log(`boot ${s_count}:${count}`, require("Storage").read(".bootcde")?.slice(0, 30));
-const onConnect = (info: { ip: string }) => {
-  log(s_connected, info.ip, new Date().toISOString());
-  server.listen(3000);
-  // http.get("http://worldtimeapi.org/api/timezone/Asia/Shanghai", (r) => {
-  //   let d = "";
-  //   r.on("data", (c:any) => (d += c));
-  //   r.on("end", () => log("Beijing time", JSON.parse(d).datetime));
-  // });
+server.listen(3000);
+try {
   require("app.js");
+} catch (error) {
+  console.log(error);
+}
+const onConnect = (info: { ip: string }) => {
+  light(100);
+  log(s_connected, info.ip, new Date().toISOString());
 };
 
-wifi.getDetails((details) => {
+// TODO 这个检测不太可靠,有时候连接上了它状态还是未链接
+wifi.getDetails((details: any) => {
   const status = details.status;
   if (!status.startsWith(s_connect)) {
     wifi.connect(wifiConfig.ssid, { password: wifiConfig.pwd }, (_) => log("[wifi]", s_connect));
   }
   if (status === s_connected) {
-    wifi.getIP((_, info) => onConnect(info));
+    wifi.getIP((_: any, info: any) => onConnect(info));
   } else {
+    log("[wifi status]", status);
     wifi.on(s_connected, onConnect);
   }
 });
 wifi.stopAP(() => {});
 
-// wifi network watch
-// require("Wifi").getDetails(console.log)
+// 每30秒检测一次网络，如果断开则重启
 setInterval(() => {
-  wifi.getDetails((details) => {
-    if (details.status !== s_connected) {
-      log(`not wifi ${s_connected} reboot`);
-      ESP8266.reboot();
-    }
+  wifi.getDetails((details: any) => {
+    if (details.status === s_connected) return;
+
+    log(`not wifi ${s_connected} reboot`);
+    ESP8266.reboot();
   });
 }, 30 * 1000);

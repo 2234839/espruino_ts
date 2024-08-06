@@ -1,10 +1,8 @@
-export const logs: any[] = [];
 const _log = console.log;
+export let logInfo = "";
+
 export const log = (...args: any[]) => {
   _log(...args);
-  logs.push(args);
-  if (logs.length > 20) {
-    logs.shift();
-  }
+  logInfo += `${Date.now().toFixed(2)}:` + args.join(" ") + "\n";
 };
 console.log = log;

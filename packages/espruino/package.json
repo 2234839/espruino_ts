@@ -7,6 +7,7 @@
     "build": "tsup",
     "watch": "tsup --watch",
     "flashBase": "tsx ./scripts/flashBase.ts && espruino -b 115200 ./dist/base.js",
+    "flashBaseNet": "tsx ./scripts/flashBase.ts && espruino -p tcp://192.168.2.167 ./dist/base.js",
     "flashApp": "tsx ./scripts/flashApp.ts && espruino -b 115200 ./dist/app.js",
     "flashAppNet": "tsx ./scripts/flashApp.ts && espruino -p tcp://192.168.2.167 ./dist/app.js",
     "mini": "npm run uglifyjs_mini && npm run terser_mini",

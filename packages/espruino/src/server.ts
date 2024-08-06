@@ -2,9 +2,9 @@ import http = require("http");
 import ESP8266 = require("ESP8266");
 import { light } from "./led";
 import { count } from "./store";
-import { log, logs } from "./util";
+import { log, logInfo } from "./util";
 export const server = http.createServer((req, res) => {
-  light(1000);
+  light(200);
   log("[req]", req.url);
   let body = "";
   req.on("data", (data) => {
@@ -19,11 +19,7 @@ export const server = http.createServer((req, res) => {
   <a href="/about">about</a>\
    | <a href="/reboot">reboot</a>\
    | reboot count ${count}\
-  <pre>${JSON.stringify(
-    logs.reverse().map((el) => el.join(" ")),
-    null,
-    2,
-  )}</pre>
+  <pre>${logInfo}</pre>
   `,
       );
     } else if (req.url === "/about") {
